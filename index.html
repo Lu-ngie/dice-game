@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROLL-A-DIE</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Advanced Dice Game</h1>
+        <div class="instructions">
+            <h2>Game Instructions</h2>
+            <ol>
+                <li>Enter the names of the two players.</li>
+                <li>Click the "Roll Dice" button to roll the dice for both players.</li>
+                <li>The player with the higher dice roll wins the round.</li>
+                <li>The first player to win 3 rounds wins the game.</li>
+                <li>A pop-up message will announce the round winner and the game winner.</li>
+            </ol>
+        </div>
+        <div class="player-names">
+            <input type="text" id="player1Name" placeholder="Enter Player 1 Name">
+            <input type="text" id="player2Name" placeholder="Enter Player 2 Name">
+        </div>
+        <div class="players">
+            <div class="player">
+                <h2 id="player1Title">Player 1</h2>
+                <img id="dice1" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Dice_1.svg" alt="Dice">
+            </div>
+            <div class="player">
+                <h2 id="player2Title">Player 2</h2>
+                <img id="dice2" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Dice_2.svg" alt="Dice">
+            </div>
+        </div>
+        <button id="rollButton">Roll Dice</button>
+        <p id="result"></p>
+        <div class="scores">
+            <p id="player1Score">Player 1 Score: 0</p>
+            <p id="player2Score">Player 2 Score: 0</p>
+            <p id="roundWinner">Round Winner: N/A</p>
+        </div>
+    </div>
+    <div id="winnerPopup" class="popup">
+        <div class="popup-content">
+            <span class="close">×</span>
+            <p id="winnerMessage"></p>
+        </div>
+    </div>
+</body>
+</html>
