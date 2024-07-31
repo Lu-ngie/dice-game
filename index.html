@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROLL-A-DIE</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="script.js" defer></script>
+    <title>3-Player Dice Game</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="main.js" defer></script>
 </head>
 <body>
     <div class="container">
-        <h1>Advanced Dice Game</h1>
+        <h1>ROLL SUM-3</h1>
         <div class="instructions">
             <h2>Game Instructions</h2>
             <ol>
-                <li>Enter the names of the two players.</li>
-                <li>Click the "Roll Dice" button to roll the dice for both players.</li>
-                <li>The player with the higher dice roll wins the round.</li>
+                <li>Enter the names of the three players.</li>
+                <li>Click the "Roll Dice" button to roll the dice for all players.</li>
+                <li>The player with the highest dice roll wins the round.</li>
                 <li>The first player to win 3 rounds wins the game.</li>
                 <li>A pop-up message will announce the round winner and the game winner.</li>
             </ol>
@@ -23,22 +23,29 @@
         <div class="player-names">
             <input type="text" id="player1Name" placeholder="Enter Player 1 Name">
             <input type="text" id="player2Name" placeholder="Enter Player 2 Name">
+            <input type="text" id="player3Name" placeholder="Enter Player 3 Name">
         </div>
         <div class="players">
             <div class="player">
                 <h2 id="player1Title">Player 1</h2>
-                <img id="dice1" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Dice_1.svg" alt="Dice">
+                <img id="dice1" src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3265341/red-dice-2-01-one-icon-md.png" alt="Dice">
             </div>
             <div class="player">
                 <h2 id="player2Title">Player 2</h2>
-                <img id="dice2" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Dice_2.svg" alt="Dice">
+                <img id="dice2" src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3265357/red-dice-2-05-five-icon-md.png" alt="Dice">
             </div>
-        </div>
+            <div class="player">
+                <h2 id="player3Title">Player 3</h2>
+                <img id="dice3" src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3265349/red-dice-2-03-three-icon-md.png" alt="Dice">
+            </div>
+            </div>
+
         <button id="rollButton">Roll Dice</button>
         <p id="result"></p>
         <div class="scores">
             <p id="player1Score">Player 1 Score: 0</p>
             <p id="player2Score">Player 2 Score: 0</p>
+            <p id="player3Score">Player 3 Score: 0</p>
             <p id="roundWinner">Round Winner: N/A</p>
         </div>
     </div>
@@ -48,5 +55,6 @@
             <p id="winnerMessage"></p>
         </div>
     </div>
+    <script>script.js</script>
 </body>
 </html>

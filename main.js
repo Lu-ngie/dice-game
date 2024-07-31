@@ -1,64 +1,71 @@
-let player1Score = 0;
-let player2Score = 0;
-const winningScore = 3;
-
-document.getElementById('rollButton').addEventListener('click', function() {
-    // Get player names
-    const player1Name = document.getElementById('player1Name').value || 'Player 1';
-    const player2Name = document.getElementById('player2Name').value || 'Player 2';
-
-    // Generate random dice rolls
-    const dice1 = Math.floor(Math.random() * 6) + 1;
-    const dice2 = Math.floor(Math.random() * 6) + 1;
-
-    // Update dice images with animation
-    const dice1Img = document.getElementById('dice1');
-    const dice2Img = document.getElementById('dice2');
+document.addEventListener('DOMContentLoaded', () => {
+    const rollButton = document.getElementById('rollButton');
+    const resultText = document.getElementById('result');
+    const popup = document.getElementById('winnerPopup');
+    const winnerMessage = document.getElementById('winnerMessage');
+    const closePopup = document.querySelector('.popup .close');
     
-    dice1Img.classList.add('roll');
-    dice2Img.classList.add('roll');
+    const player1ScoreElem = document.getElementById('player1Score');
+    const player2ScoreElem = document.getElementById('player2Score');
+    const player3ScoreElem = document.getElementById('player3Score');
+    const roundWinnerElem = document.getElementById('roundWinner');
     
-    setTimeout(() => {
-        dice1Img.src = `https://upload.wikimedia.org/wikipedia/commons/${dice1}_${dice1}.svg`;
-        dice2Img.src = `https://upload.wikimedia.org/wikipedia/commons/${dice2}_${dice2}.svg`;
-        dice1Img.classList.remove('roll');
-        dice2Img.classList.remove('roll');
-    }, 300);
-
-    // Determine result
-    let resultText = '';
-    if (dice1 > dice2) {
-        resultText = `${player1Name} Wins this round!`;
-        player1Score++;
-    } else if (dice1 < dice2) {
-        resultText = `${player2Name} Wins this round!`;
-        player2Score++;
-    } else {
-        resultText = 'It\'s a Draw!';
+    const playerScores = [0, 0, 0];
+    const playerWins = [0, 0, 0];
+    const WINNING_SCORE = 3;
+    
+    rollButton.addEventListener('click', () => {
+        const playerNames = [
+            document.getElementById('player1Name').value || 'Player 1',
+            document.getElementById('player2Name').value || 'Player 2',
+            document.getElementById('player3Name').value || 'Player 3'
+        ];
+        
+        const rolls = [rollDice(), rollDice(), rollDice()];
+        
+        updateDiceImages(rolls);
+        const highestRoll = Math.max(...rolls);
+        const winners = rolls.map((roll, index) => roll === highestRoll ? index : -1).filter(index => index !== -1);
+        
+        if (winners.length === 1) {
+            const roundWinner = winners[0];
+            playerWins[roundWinner]++;
+            roundWinnerElem.textContent = `Round Winner: ${playerNames[roundWinner]} (${rolls[roundWinner]})`;
+            
+            if (playerWins[roundWinner] === WINNING_SCORE) {
+                winnerMessage.textContent = `${playerNames[roundWinner]} wins the game!`;
+                popup.style.display = 'flex';
+            }
+        } else {
+            roundWinnerElem.textContent = `Round Winner: It's a tie! (${rolls.join(', ')})`;
+        }
+        
+        for (let i = 0; i < 3; i++) {
+            document.getElementById(`player${i + 1}Score`).textContent = `${playerNames[i]} Score: ${playerWins[i]}`;
+        }
+    });
+    
+    closePopup.addEventListener('click', () => {
+        popup.style.display = 'none';
+    });
+    
+    function rollDice() {
+        return Math.floor(Math.random() * 6) + 1;
     }
-
-    // Update scores
-    document.getElementById('player1Score').textContent = `${player1Name} Score: ${player1Score}`;
-    document.getElementById('player2Score').textContent = `${player2Name} Score: ${player2Score}`;
-
-    // Determine game winner
-    let winnerMessage = '';
-    if (player1Score === winningScore) {
-        winnerMessage = `${player1Name} wins the game!`;
-    } else if (player2Score === winningScore) {
-        winnerMessage = `${player2Name} wins the game!`;
+    
+    function updateDiceImages(rolls) {
+        const diceImages = [
+            'https://creazilla-store.fra1.digitaloceanspaces.com/icons/3265341/red-dice-2-01-one-icon-md.png', // Image for face 1
+            'https://creazilla-store.fra1.digitaloceanspaces.com/icons/3265357/red-dice-2-05-five-icon-md.png', // Image for face 2
+            'https://creazilla-store.fra1.digitaloceanspaces.com/icons/3265349/red-dice-2-03-three-icon-md.png', // Image for face 3
+            'https://creazilla-store.fra1.digitaloceanspaces.com/icons/3265353/red-dice-2-04-four-icon-md.png', // Image for face 4
+            'https://creazilla-store.fra1.digitaloceanspaces.com/icons/3265357/red-dice-2-05-five-icon-md.png', // Image for face 5
+            'https://creazilla-store.fra1.digitaloceanspaces.com/icons/3265360/red-dice-2-06-six-icon-md.png',  // Image for face 6
+        ];
     }
-
-    if (winnerMessage) {
-        document.getElementById('winnerMessage').textContent = winnerMessage;
-        document.getElementById('winnerPopup').style.display = 'flex';
-    } else {
-        document.getElementById('result').textContent = resultText;
-        document.getElementById('roundWinner').textContent = `Round Winner: ${dice1 > dice2 ? player1Name : dice1 < dice2 ? player2Name : 'None'}`;
+    function updateDiceImages(rolls) {
+        document.getElementById('dice1').src = `https://creazilla-store.fra1.digitaloceanspaces.com/icons/3265353/red-dice-2-04-four-icon-md.png/${rolls[0]}/${rolls[0]}_dice.svg`;
+        document.getElementById('dice2').src =`https://creazilla-store.fra1.digitaloceanspaces.com/icons/3265357/red-dice-2-05-five-icon-md.png/${rolls[1]}/${rolls[1]}_dice.svg`;
+        document.getElementById('dice3').src = `https://creazilla-store.fra1.digitaloceanspaces.com/icons/3265360/red-dice-2-06-six-icon-md.png/${rolls[2]}/${rolls[2]}_dice.svg`;
     }
-});
-
-// Close popup
-document.querySelector('.popup .close').addEventListener('click', function() {
-    document.getElementById('winnerPopup').style.display = 'none';
 });
